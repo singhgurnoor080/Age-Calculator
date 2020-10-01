@@ -1,35 +1,30 @@
-from tkinter import *
-from datetime import date
-root = Tk()
-root.geometry("700x500")
-root.title("Age Calculator")
+import datetime
+def cal():
+    dob = datetime.datetime(day=int(input("DAY: ")), month=int(input("MONTH: ")), year=int(input("YEAR: ")))
+    #data
+    weekdayname = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    currtime = datetime.datetime.now() # current_time is the time when program is running
+    days = (currtime.date() - dob.date()).days
+    weeks = days // 4
+    extra_days_after_weeks = days % 4
+    months= weeks // 4
+    extra_days_after_months= weeks%4
+    years = currtime.year - dob.year
+    hours = (days * 24) + currtime.time().hour
+    print("\n\n You were born on:  ",weekdayname[dob.weekday()])
+    print("Your age is now:\n -->", hours,"hours\n -->", days,"days\n -->", weeks,"weeks", end=" ")
+    if extra_days_after_weeks !=0:
+        print("+", extra_days_after_weeks,"day/s", end=" ")
 
-def calculateAge():
-    today = date.today()
-    birthDate = date(int(yearEntry.get()), int(monthEntry.get()), int(dayEntry.get()))
-    age = today.year - birthDate.year - ((today.month, today.day) < (birthDate.month, birthDate.day))
-    Label(text=f"{nameValue.get()} your age is {age}").grid(row=6, column=1)
-    
-Label(text="Name").grid(row=1, column=0, padx=90)
-Label(text="Year").grid(row=2, column=0)
-Label(text="Month").grid(row=3, column=0)
-Label(text="Day").grid(row=4, column=0)
+    print("\n-->", months, "months", end=" " )
 
-nameValue = StringVar()
-yearValue = StringVar()
-monthValue = StringVar()
-dayValue = StringVar()
+    if extra_days_after_months != 0:
+        print("+", extra_days_after_months, "day/s", end=" ")
 
-nameEntry = Entry(root, textvariable=nameValue)
-yearEntry = Entry(root, textvariable=yearValue)
-monthEntry = Entry(root, textvariable=monthValue)
-dayEntry = Entry(root, textvariable=dayValue)
+    print("\n-->", years, "years\n\n")
 
-nameEntry.grid(row=1, column=1, pady=10)
-yearEntry.grid(row=2, column=1, pady=10)
-monthEntry.grid(row=3, column=1, pady=10)
-dayEntry.grid(row=4, column=1, pady=10)
+print("Welcome to DOB calci")
+print("Enter your DOB")
 
-computeButton = Button(text="CalculateAge", command=calculateAge)
-computeButton.grid(row=5, column=1, pady=10)
-root.mainloop()
+for i in range(0,10):
+    cal()
